@@ -1,0 +1,26 @@
+{
+	"main": "bundles/ng2-screenshot.umd.js",
+	"version": "0.0.1",
+	"description": "Angular screenshot in directive for screen capture.",
+	"module": "index.js",
+	"typings": "index.d.ts",
+	"keywords": [
+		"angular",
+		"angular2",
+		"screenshot"
+	],
+	"author": {
+		"name": "weihanchen"
+	},
+	"license": "MIT",
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/weihanchen/ng2-screenshot.git"
+	},
+	"name": "ng2-screenshot",
+	"peerDependencies": {
+		"@angular/common": "^2.4.7 || ^4.0.0",
+		"@angular/core": "^2.4.7 || ^4.0.0"
+	},
+	"_id": "ng2-screenshot@"
+}
