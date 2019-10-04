@@ -7,9 +7,10 @@
         "lite-server": "lite-server -c demo/bs-config.json",
         "demo:serve": "run-s build link demo:build lite-server",
         "demo:build": "ng build -prod --aot",
+        "demo:watch": "ng build -prod --aot --watch",
         "test": "karma start",
         "build": "ngm build -p src --clean",
-        "minify": "./node_modules/uglify-js/bin/uglifyjs bundles/index.umd.js --screw-ie8 --compress --mangle --comments --output bundles/index.umd.min.js"
+        "build:watch": "ngm build -p src --watch"
     },
     "repository": {
         "type": "git",
@@ -30,7 +31,7 @@
     "typings": "index.d.ts",
     "homepage": "https://github.com/weihanchen/ng2-screenshot",
     "peerDependencies": {
-        "@angular/core": "^2.4.7 || ^4.0.0"
+        "@angular/core": "4.4.3"
     },
     "devDependencies": {
         "@angular/cli": "1.0.0",
@@ -47,6 +48,7 @@
         "@types/jasmine": "^2.5.51",
         "@types/jquery": "^3.3.31",
         "@types/node": "^7.0.29",
+        "@types/webpack": "^4.39.2",
         "awesome-typescript-loader": "^3.1.3",
         "cash-cp": "^0.2.0",
         "classlist-polyfill": "^1.2.0",
@@ -72,7 +74,7 @@
         "karma-webpack": "^2.0.3",
         "loader-utils": "^1.1.0",
         "ngx-bootstrap": "^2.0.0",
-        "ngm-cli": "^1.0.4",
+        "ngm-cli": "0.4.0",
         "npm-run-all": "^4.1.5",
         "reflect-metadata": "^0.1.10",
         "rxjs": "^5.4.0",

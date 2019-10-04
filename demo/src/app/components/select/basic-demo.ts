@@ -5,8 +5,8 @@ import { Component } from '@angular/core';
     templateUrl: './basic-demo.html'
 })
 export class BasicComponent {
-    public target = 'target1';
-    public isOpen = false;
+    public target: string = 'target1';
+    public isOpen: boolean = false;
     public target1Options = {
         filename: 'target1.png',
         downloadText: 'Download me',

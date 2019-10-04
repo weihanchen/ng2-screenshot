@@ -7,8 +7,8 @@ let gettingStarted = require('html-loader!markdown-loader!../getting-started.md'
     template: `
         <main class="bd-pageheader">
             <div class="container">
-                <h1>ng2-screenshot</h1>
-                <p>Native Angular2 component for Screenshot</p>
+                <h1>Test</h1>
+                <p>Test</p>
                 <a class="btn btn-primary" href="https://github.com/weihanchen/ng2-screenshot">View on GitHub</a>
             </div>
         </main>

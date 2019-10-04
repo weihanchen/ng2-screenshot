@@ -1,5 +1,7 @@
-export * from './screenshot-toolbox.component';
-export * from './screenshot.component';
-export * from './screenshot.interface';
-export * from './screenshot.utils';
-export * from './screenshot.class';
+export * from './screenshot/screenshot-toolbox.component';
+export * from './screenshot/screenshot.component';
+export * from './screenshot/screenshot.interface';
+export * from './screenshot/screenshot.utils';
+export * from './screenshot/screenshot.class';
+
+export { ScreenshotModule } from './screenshot/screenshot.module';

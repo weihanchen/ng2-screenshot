@@ -1,21 +1,22 @@
-import { Component, Input, Inject, forwardRef, OnInit, OnChanges } from '@angular/core';
+import { Component, Input, Inject, forwardRef, OnInit, OnChanges, ElementRef } from '@angular/core';
 import { ToolboxOptions, API, Rect, ToolboxPosition } from './screenshot.interface';
 import { Colors, HightLevelZindex, ToolboxDefaultOptions } from './screenshot.class';
 import { DOMProcess } from './screenshot.utils';
-import domtoimage from 'dom-to-image';
+const domtoimage = require('dom-to-image');
 import * as $ from 'jquery';
 /**
  * Capture dom setion with indicate element
  */
 @Component({
     selector: 'ng2-screenshot',
-    template: ''
+    template: '<div><ng-content></ng-content></div>'
 })
 export class ScreenshotComponent implements OnInit, OnChanges {
     @Input('target') target: string;
     @Input('isOpen') isOpen: boolean;
     @Input('toolboxOptions') toolboxOptions: ToolboxOptions;
     @Input('api') api: API;
+    public showToolbox: boolean = false;
     private cancelText = 'Cancel';
     private downloadText = 'Download';
     private filename = 'screenshot.png';
@@ -23,24 +24,29 @@ export class ScreenshotComponent implements OnInit, OnChanges {
     private toolboxElement: HTMLElement;
     private interactiveCanvas: HTMLCanvasElement;
     private rect: Rect;
-    private template: string = `<div class="screenshot-toolbox">
-    <button class="btn" type="button" ng-click="screenshotCtrl.cancel()">{{screenshotCtrl.cancelText}}</button>
-    <button class="btn" type="button" ng-click="screenshotCtrl.download()">{{screenshotCtrl.downloadText}}</button>
-    </div>`;
     constructor(
         @Inject(forwardRef(() => Colors)) private colors: Colors,
-        @Inject(forwardRef(() => DOMProcess)) private domprocess: DOMProcess,
         @Inject(forwardRef(() => HightLevelZindex)) private hightLevelZindex: HightLevelZindex,
-        @Inject(forwardRef(() => ToolboxDefaultOptions)) private defaultOptions: ToolboxDefaultOptions
+        @Inject(forwardRef(() => ToolboxDefaultOptions)) private defaultOptions: ToolboxDefaultOptions,
+        @Inject(forwardRef(() => DOMProcess)) private domprocess: DOMProcess,
     ) {}
     ngOnInit() {
-        this.toolboxOptions.filename = this.toolboxOptions.filename || this.defaultOptions.filename;
-        this.toolboxOptions.cancelText = this.toolboxOptions.cancelText || this.defaultOptions.cancelText;
-        this.toolboxOptions.downloadText = this.toolboxOptions.downloadText || this.defaultOptions.downloadText;
-        this.api.cancel = this.cancel;
-        this.api.download = this.download;
-        this.api.downloadFull = this.downloadFull;
-        this.api.toPng = this.toPng;
+        if (!this.toolboxOptions) {
+            this.toolboxOptions = {
+                filename: this.defaultOptions.filename,
+                cancelText: this.defaultOptions.cancelText,
+                downloadText: this.defaultOptions.downloadText
+            };
+        }
+
+        if (!this.api) {
+            this.api = {
+                cancel: this.cancel,
+                download: this.download,
+                downloadFull: this.downloadFull,
+                toPng: this.toPng
+            };
+        }
         window.onresize = () => {
             this.resizeCanvas();
         };
@@ -48,7 +54,7 @@ export class ScreenshotComponent implements OnInit, OnChanges {
 
     ngOnChanges(item: any) {
         const { isOpen, toolboxOptions } = item;
-        switch (isOpen) {
+        switch (isOpen.currentValue) {
             case true:
                 this.openScreenshot();
                 break;
@@ -66,13 +72,13 @@ export class ScreenshotComponent implements OnInit, OnChanges {
         }
     }
 
-    private calculateToolboxPosition(
+    private calculateToolboxPosition = (
         offsetLeft: number,
         offsetTop: number,
         rect: Rect,
         toolboxWidth: number,
         toolboxHeight: number
-    ): ToolboxPosition {
+    ): ToolboxPosition => {
         let left = offsetLeft + rect.startX + rect.w;
         let top = offsetTop + rect.startY + rect.h;
         if (rect.w >= 0) {
@@ -89,22 +95,22 @@ export class ScreenshotComponent implements OnInit, OnChanges {
         };
     }
 
-    private cancel() {
+    public cancel = () => {
+        console.log('ccancel')
         this.domprocess.remove(this.toolboxElement);
         this.domprocess.clearCanvasRect(this.interactiveCanvas);
     }
 
-    private download() {
+    public download = () => {
         this.isOpen = false;
         window.setTimeout(() => {
             const elementSelector = this.getElementSelector();
             const element = elementSelector[0];
             const options = this.getOptions(element);
-
             domtoimage
                 .toPng(element, options)
                 .then(this.domprocess.dataUrlToImage)
-                .then(image => {
+                .then((image: HTMLImageElement) => {
                     this.domprocess.remove(image);
                     return this.domprocess.clipImageToCanvas(
                         image,
@@ -114,13 +120,13 @@ export class ScreenshotComponent implements OnInit, OnChanges {
                         this.rect.h
                     );
                 })
-                .then(canvas => this.domprocess.downloadCanvas(canvas, this.toolboxOptions.filename))
+                .then((canvas: HTMLCanvasElement) => this.domprocess.downloadCanvas(canvas, this.toolboxOptions.filename))
                 .then(this.domprocess.remove)
-                .catch(error => console.error(error));
+                .catch((error: Error) => console.error(error));
         });
     }
 
-    private downloadFull() {
+    private downloadFull = () => {
         this.isOpen = false;
         window.setTimeout(() => {
             const elementSelector = this.getElementSelector();
@@ -128,12 +134,12 @@ export class ScreenshotComponent implements OnInit, OnChanges {
             const options = this.getOptions(element);
             domtoimage
                 .toPng(element, options)
-                .then(imageUrl => this.domprocess.downloadByUrl(imageUrl, this.toolboxOptions.filename))
-                .catch(error => console.error(error));
+                .then((imageUrl: string) => this.domprocess.downloadByUrl(imageUrl, this.toolboxOptions.filename))
+                .catch((error: Error) => console.error(error));
         });
     }
 
-    private findMaxZindex(): number {
+    private findMaxZindex = (): number => {
         let zMax = 0;
         $('body *').each(function() {
             const zIndexStr: string = $(this).css('zIndex');
@@ -145,15 +151,15 @@ export class ScreenshotComponent implements OnInit, OnChanges {
         return zMax;
     }
 
-    private getElementSelector(): JQuery<HTMLElement> {
+    private getElementSelector = (): JQuery<HTMLElement> => {
         return this.target
             ? $(this.target)
-            : $().filter((index: number, element: HTMLElement) => {
+            : $('ng2-screenshot').filter((index: number, element: HTMLElement) => {
                   const elementName = element.tagName.toLowerCase();
                   return elementName !== 'screenshot-toolbox';
               });
     }
-    private getOptions(element: HTMLElement) {
+    private getOptions = (element: HTMLElement) => {
         const boudingClientRect = element.getBoundingClientRect();
         let options = {
             width: boudingClientRect.width,
@@ -166,7 +172,7 @@ export class ScreenshotComponent implements OnInit, OnChanges {
         return options;
     }
 
-    private setHightLevelZindex() {
+    private setHightLevelZindex = () => {
         const maxZindex = this.findMaxZindex();
         this.hightLevelZindex.second = maxZindex + 1;
         this.hightLevelZindex.top = this.hightLevelZindex.second + 1;
@@ -182,7 +188,7 @@ export class ScreenshotComponent implements OnInit, OnChanges {
                 return domtoimage
                     .toPng(element, options)
                     .then(this.domprocess.dataUrlToImage)
-                    .then(image => {
+                    .then((image: HTMLImageElement) => {
                         this.domprocess.remove(image);
                         return this.domprocess.clipImageToCanvas(
                             image,
@@ -192,30 +198,32 @@ export class ScreenshotComponent implements OnInit, OnChanges {
                             this.rect.h
                         );
                     })
-                    .then(canvas => {
+                    .then((canvas: HTMLCanvasElement) => {
                         const url = canvas.toDataURL('image/png');
                         if (callback) {
                             callback(url);
                         }
                         resolve(url);
                     })
-                    .catch(error => {
+                    .catch((error: Error) => {
                         console.error(error);
                         reject(error);
                     });
             });
         });
 
-    private canvasMousedownListener() {
+    public canvasMousedownListener = () => {
+        console.log('mousedown')
         this.domprocess.remove(this.toolboxElement);
     }
 
-    private canvasMouseupListener(canvas: HTMLCanvasElement, rect: Rect) {
+    public canvasMouseupListener = (canvas: HTMLCanvasElement, rect: Rect) => {
         if (rect.w !== 0 && rect.h !== 0) {
             this.domprocess.remove(this.toolboxElement);
             this.rect = rect;
-            const toolbox = $(this.template);
+            const toolbox = $('ng2-screenshot-toolbox');
             const toolboxElement = toolbox[0];
+            console.log(toolboxElement);
             /**
              * toolbox position setting
              * because read elememt's width sould indicated postion method, so we set position method first then move location with dom.
@@ -235,17 +243,19 @@ export class ScreenshotComponent implements OnInit, OnChanges {
                 })
                 .then(element => {
                     this.toolboxElement = element;
+                    this.showToolbox = true;
                 });
         }
     }
 
-    private canvasContextmenuListener() {
+    public canvasContextmenuListener = () => {
         this.isOpen = false;
     }
 
-    private closeScreenshot() {
+    private closeScreenshot = () =>  {
         this.domprocess.remove(this.interactiveCanvas);
         this.domprocess.remove(this.toolboxElement);
+        this.showToolbox = false;
     }
 
     private openScreenshot() {
@@ -282,7 +292,7 @@ export class ScreenshotComponent implements OnInit, OnChanges {
             .then(canvas => (this.interactiveCanvas = canvas));
     }
 
-    private resizeCanvas() {
+    private resizeCanvas = () => {
         if (!this.interactiveCanvas) {
             return;
         }

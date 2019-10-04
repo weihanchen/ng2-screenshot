@@ -1,7 +1,0 @@
-{
-    "name": "ng2-screenshot",
-    "peerDependencies": {
-      "@angular/common": "*",
-      "@angular/core": "*"
-    }
-  }

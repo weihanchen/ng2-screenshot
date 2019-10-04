@@ -20,7 +20,7 @@ import { SampleSectionComponent } from './components/sample-section.component';
   imports: [
     BrowserModule,
     FormsModule,
-    ScreenshotModule.forRoot(),
+    ScreenshotModule,
     TabsModule.forRoot(),
     ButtonsModule.forRoot(),
     CommonModule
