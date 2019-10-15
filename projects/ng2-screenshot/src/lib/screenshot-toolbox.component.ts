@@ -32,7 +32,7 @@ import { ScreenshotComponent } from './screenshot.component';
 export class ScreenshotToolboxComponent implements AfterViewInit {
     @ViewChild('wrapper', { static: false }) wrapper: ElementRef;
     hasContent = false;
-    constructor(@Inject(ScreenshotComponent) private parent: ScreenshotComponent) {
+    constructor(@Inject(ScreenshotComponent) public parent: ScreenshotComponent) {
         // const template = `<div class="screenshot-toolbox">${el.nativeElement.children().html()}</div>`;
         // renderer.selectRootElement(template);
         // el.nativeElement.remove();

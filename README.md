@@ -3,11 +3,10 @@ ng2-screenshot
 
 Angular screenshot in directive for screen capture.
 
-
 ## Installation
 
 ```sh
-$npm install ng2-screenshot
+npm install ng2-screenshot
 ```
 
 ## Basic Usage
@@ -37,7 +36,7 @@ export class AppModule {
 }
 ```
 
-3. Add `ng2-screenshot` and `ng2-screenshot-toolbox` to your template
+3. Add `ng2-screenshot` and `ng2-screenshot-toolbox` to your template, `basic.component.html`
 
 ```html
 <div>
@@ -58,3 +57,28 @@ export class AppModule {
    
 </div>
 ```
+
+4. declare binding variable: `isOpen`、`isOpenChange($event: boolean)`
+
+```typescript
+import { Component } from '@angular/core';
+
+@Component({
+  selector: 'basic-demo',
+  templateUrl: './basic.component.html',
+  styleUrls: ['./basic.component.scss']
+})
+export class BasicDemoComponent {
+  isOpen = false;
+
+  isOpenChange($event: boolean) {
+    this.isOpen = $event;
+  }
+}
+
+```
+
+
+## Issue
+
+This component implement on angular 8.0, but not test on other version.

@@ -1,9 +1,10 @@
-import { Component, Input, Inject, forwardRef, OnInit, OnChanges, ElementRef, Output, EventEmitter } from '@angular/core';
+import { Component, Input, Inject, forwardRef, OnInit, OnChanges, Output, EventEmitter } from '@angular/core';
 import { ToolboxOptions, API, Rect, ToolboxPosition } from './screenshot.interface';
 import { Colors, HightLevelZindex, ToolboxDefaultOptions } from './screenshot.class';
 import { DOMProcess } from './screenshot.utils';
-const domtoimage = require('dom-to-image');
-import * as $ from 'jquery';
+import domtoimage from 'dom-to-image';
+import * as jq from 'jquery';
+const $ = jq;
 /**
  * Capture dom setion with indicate element
  */

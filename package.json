@@ -1,11 +1,22 @@
 {
   "name": "ng2-screenshot",
   "version": "0.1.0",
+  "description": "Angular Screenshot",
+  "author": "Weihanchen <weihanchen@gmail.com>",
+  "homepage": "http://weihanchen.github.io/ng2-screenshot/",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/weihanchen/ng2-screenshot.git"
+  },
+  "bugs": {
+    "url": "https://github.com/weihanchen/ng2-screenshot/issues"
+  },
+  "license": "MIT",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
     "build:demo": "ng build demo --aot --prod",
-    "build:lib": "ng build ng2-screenshot --aot --prod",
+    "build:lib": "ng build ng2-screenshot",
     "build:ci": "npm run build:demo && npm run build:lib",
     "docs:gh-pages": "npm run build:demo -- --base-href '/ng2-screenshot/' && ngh --dir ./dist/demo",
     "test": "ng test",
@@ -34,8 +45,8 @@
     "zone.js": "~0.9.1"
   },
   "devDependencies": {
-    "@angular-devkit/build-angular": "~0.800.0",
-    "@angular-devkit/build-ng-packagr": "~0.800.0",
+    "@angular-devkit/build-angular": "^0.801.3",
+    "@angular-devkit/build-ng-packagr": "^0.801.3",
     "@angular/cli": "~8.0.1",
     "@angular/compiler-cli": "~8.0.0",
     "@angular/language-service": "~8.0.0",
