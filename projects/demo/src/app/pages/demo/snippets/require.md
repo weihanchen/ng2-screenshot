@@ -1,0 +1,1 @@
+import { Ng2ScreenshotModule } from 'ng2-screenshot';

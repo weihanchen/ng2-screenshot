@@ -1,0 +1,55 @@
+/*! Angular Screenshot - v0.1.0 - http://weihanchen.github.io/ng2-screenshot - (c) 2017 weihanchen - MIT */
+/* shared */
+/* components */
+.screenshot-toolbox {
+  button {
+    margin: 0.2em;
+  }
+  .btn {
+    position: relative;
+    padding: 0.2em 0.4em;
+    overflow: hidden;
+    border-width: 0;
+    outline: none;
+    border-radius: 0.2em;
+    box-shadow: 0 0.1em 0.2em #4f4f4f;
+    background-color: #e6e3e3;
+    color: #4f4f4f;
+    transition: background-color 0.3s;
+  }
+  .btn:hover,
+  .btn:focus {
+    background: #cdcccc;
+  }
+  .btn > * {
+    position: relative;
+  }
+  .btn:before {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    display: block;
+    width: 0;
+    padding-top: 0;
+    border-radius: 100%;
+    background-color: rgba(205, 204, 204, 0.3);
+    transform: translate(-50%, -50%);
+  }
+  .btn:active:before {
+    width: 120%;
+    padding-top: 120%;
+    transition: width 0.2s ease-out, padding-top 0.2s ease-out;
+  }
+  .btn-navy {
+    background-color: #1d9e74;
+  }
+  .btn-navy:hover,
+  .btn-navy:focus {
+    background-color: #138661;
+  }
+}
+
+.screenshot-toolbox-custom {
+  visibility: hidden;
+}

@@ -1,0 +1,1 @@
+npm install --save ng2-screenshot

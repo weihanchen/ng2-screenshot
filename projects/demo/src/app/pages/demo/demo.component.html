@@ -1,0 +1,52 @@
+<header-component tagline="Quick Start & Demo"></header-component>
+<section class="main-content">
+
+  <h2 ><a id="getting-started" class="anchor" href="#getting-started" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Getting Started</h2>
+  <p>
+    Hello and Welcome!
+  </p>
+
+  <h3><a id="installation" class="anchor" href="#installation" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Installation</h3>
+  <p>
+    The library is available as npm package, so all you need to do is to run the following command:
+  </p>
+  <pre>
+    <code highlight class="bash">{{ snippets.install }}</code>
+  </pre>
+  <p>This command will create a record in your `package.json` file and install the package into the npm modules folder.</p>
+
+  <h2><a id="examples" class="anchor" href="#examples" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Examples</h2>
+  <h3><a id="minimal-setup" class="anchor" href="#minimal-setup" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Minimal Setup Example</h3>
+  <p>
+    First thing you need to do is to import the ng-screenshot component into your component.
+  </p>
+  <pre>
+    <code highlight class="typescript">{{ snippets.require }}</code>
+  </pre>
+  <p>
+    Then register it by adding to the list of directives of your module:
+  </p>
+  <pre>
+    <code highlight class="typescript">{{ snippets.directive }}</code>
+  </pre>
+  <p>
+    Now, we need to configure the isOpen flag to control screenshot canvas and isOpenChange receive from screenshot component.<br>
+    Let's register <i>isOpen</i>、<i>isOpenChange</i> property inside of the component (<a [routerLink]="['/documentation']">Settings documentation</a>):
+  </p>
+  <pre>
+    <code highlight class="typescript">{{ snippets.settings }}</code>
+  </pre>
+  <p>
+    Finally let's put the ng-screenshot component inside of the template:
+  </p>
+  <pre>
+    <code highlight class="typescript">{{ snippets.template }}</code>
+  </pre>
+  <p>
+    At this step you will have a minimally configured table which should look something like this:
+  </p>
+  <div>
+    <basic-demo></basic-demo>
+  </div>
+  <p>Full component documentation you can find <a [routerLink]="['/documentation']">here</a>.</p>
+</section>

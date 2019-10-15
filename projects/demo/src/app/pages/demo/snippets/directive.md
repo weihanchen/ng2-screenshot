@@ -1,0 +1,13 @@
+// ...
+
+@NgModule({
+  imports: [
+    // ...
+    
+    Ng2ScreenshotModule,
+    
+    // ...
+  ],
+  declarations: [ ... ]
+})
+// ...

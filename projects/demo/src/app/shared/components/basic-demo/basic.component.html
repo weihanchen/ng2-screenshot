@@ -1,45 +1,3 @@
-ng2-screenshot
-===
-
-Angular screenshot in directive for screen capture.
-
-
-## Installation
-
-```sh
-$npm install ng2-screenshot
-```
-
-## Basic Usage
-
-1. Import `Ng2ScreenshotModule` into the module that declares the component using ng2-screenshot:
-
-```javascript
-import { Ng2ScreenshotModule } from 'ng2-screenshot';
-```
-
-2. Add it to imports under @NgModule:
-
-```javascript
-@NgModule({
-  declarations: [
-    AppComponent,
-    ...
-  ],
-  imports: [
-    Ng2ScreenshotModule,
-    ...
-  ],
-  bootstrap: [AppComponent]
-})
-
-export class AppModule {
-}
-```
-
-3. Add `ng2-screenshot` and `ng2-screenshot-toolbox` to your template
-
-```html
 <div>
     <nz-switch [(ngModel)]="isOpen" [nzCheckedChildren]="checkedTemplate"></nz-switch>
     <ng-template #checkedTemplate><i nz-icon nzType="scissor"></i></ng-template>
@@ -57,4 +15,3 @@ export class AppModule {
     </ng2-screenshot>
    
 </div>
-```
