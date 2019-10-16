@@ -13,8 +13,8 @@ export const routes: Routes = [
     path: 'documentation',
     loadChildren: './documentation/documentation.module#DocumentationModule',
   },
-  // {
-  //   path: 'examples',
-  //   loadChildren: './examples/examples.module#ExamplesModule',
-  // },
+  {
+    path: 'examples',
+    loadChildren: './examples/examples.module#ExamplesModule',
+  },
 ];

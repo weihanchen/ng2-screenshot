@@ -3,6 +3,9 @@ ng2-screenshot
 
 Angular screenshot in directive for screen capture.
 
+## Demo
+<a target="_blank" href="https://weihanchen.github.io/ng2-screenshot/">Live Demo</a>
+
 ## Installation
 
 ```sh

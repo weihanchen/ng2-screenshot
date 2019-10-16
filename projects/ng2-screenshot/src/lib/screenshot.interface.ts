@@ -1,4 +1,4 @@
-interface API {
+interface Ng2ScreenshotAPI {
     cancel(): void;
     download(): void;
     downloadFull(): void;
@@ -23,4 +23,4 @@ interface ToolboxPosition {
     top: number;
 }
 
-export { API, Rect, ToolboxOptions, ToolboxPosition };
+export { Ng2ScreenshotAPI, Rect, ToolboxOptions, ToolboxPosition };

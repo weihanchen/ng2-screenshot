@@ -1,5 +1,5 @@
-import { Component, Input, Inject, forwardRef, OnInit, OnChanges, Output, EventEmitter } from '@angular/core';
-import { ToolboxOptions, API, Rect, ToolboxPosition } from './screenshot.interface';
+import { Component, Input, Inject, forwardRef, OnInit, OnChanges, Output, EventEmitter, ViewChild, ElementRef } from '@angular/core';
+import { ToolboxOptions, Ng2ScreenshotAPI, Rect, ToolboxPosition } from './screenshot.interface';
 import { Colors, HightLevelZindex, ToolboxDefaultOptions } from './screenshot.class';
 import { DOMProcess } from './screenshot.utils';
 import domtoimage from 'dom-to-image';
@@ -10,19 +10,20 @@ const $ = jq;
  */
 @Component({
     selector: 'ng2-screenshot',
-    template: '<div><ng-content></ng-content></div>'
+    template: '<div #container><ng-content></ng-content></div>'
 })
 export class ScreenshotComponent implements OnInit, OnChanges {
+    @ViewChild('container', { static: false }) container: ElementRef;
     @Input('target') target: string;
     @Input('isOpen') isOpen: boolean;
     @Input('toolboxOptions') toolboxOptions: ToolboxOptions;
-    @Input('api') api: API;
     @Output('isOpenChange') isOpenChange = new EventEmitter();
-    public showToolbox: boolean = false;
+    @Output('apiInitialized') api = new EventEmitter<Ng2ScreenshotAPI>();
+    public showToolbox = false;
     private cancelText = 'Cancel';
     private downloadText = 'Download';
     private filename = 'screenshot.png';
-    private toolboxMargin: number = 5;
+    private toolboxMargin = 5;
     private interactiveCanvas: HTMLCanvasElement;
     private rect: Rect;
     constructor(
@@ -39,15 +40,12 @@ export class ScreenshotComponent implements OnInit, OnChanges {
                 downloadText: this.defaultOptions.downloadText
             };
         }
-
-        if (!this.api) {
-            this.api = {
-                cancel: this.cancel,
-                download: this.download,
-                downloadFull: this.downloadFull,
-                toPng: this.toPng
-            };
-        }
+        this.api.emit({
+            cancel: this.cancel,
+            download: this.download,
+            downloadFull: this.downloadFull,
+            toPng: this.toPng
+        });
         window.onresize = () => {
             this.resizeCanvas();
         };
@@ -97,7 +95,6 @@ export class ScreenshotComponent implements OnInit, OnChanges {
     }
 
     public cancel = () => {
-        console.log('ccancel')
         this.showToolbox = false;
         this.domprocess.clearCanvasRect(this.interactiveCanvas);
     }
@@ -142,9 +139,9 @@ export class ScreenshotComponent implements OnInit, OnChanges {
 
     private findMaxZindex = (): number => {
         let zMax = 0;
-        $('body *').each(function () {
+        $('body *').each(function() {
             const zIndexStr: string = $(this).css('zIndex');
-            let zIndex: number = parseInt(zIndexStr, 10);
+            const zIndex: number = parseInt(zIndexStr, 10);
             if (zIndex && zIndex > zMax) {
                 zMax = zIndex;
             }
@@ -155,7 +152,7 @@ export class ScreenshotComponent implements OnInit, OnChanges {
     private getElementSelector = (): JQuery<HTMLElement> => {
         return this.target
             ? $(this.target)
-            : $('ng2-screenshot').filter((index: number, element: HTMLElement) => {
+            : $(this.container.nativeElement).filter((index: number, element: HTMLElement) => {
                 const elementName = element.tagName.toLowerCase();
                 return elementName !== 'screenshot-toolbox';
             });
@@ -211,7 +208,7 @@ export class ScreenshotComponent implements OnInit, OnChanges {
                         reject(error);
                     });
             });
-        });
+        })
 
     public canvasMousedownListener = () => {
         this.showToolbox = false;
@@ -221,7 +218,8 @@ export class ScreenshotComponent implements OnInit, OnChanges {
         if (rect.w !== 0 && rect.h !== 0) {
             this.showToolbox = false;
             this.rect = rect;
-            const toolbox = $('ng2-screenshot-toolbox');
+            const toolbox = $(this.container.nativeElement).find('ng2-screenshot-toolbox');
+            // const toolbox = $('ng2-screenshot-toolbox');
             const toolboxElement = toolbox[0];
             /**
              * toolbox position setting

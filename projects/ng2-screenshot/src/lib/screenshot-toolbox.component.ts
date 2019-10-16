@@ -1,10 +1,4 @@
-import {
-    Component,
-    ElementRef,
-    ViewChild,
-    AfterViewInit,
-    Inject,
-} from '@angular/core';
+import { Component, ElementRef, ViewChild, AfterViewInit, Inject } from '@angular/core';
 import { ScreenshotComponent } from './screenshot.component';
 
 /**
@@ -47,6 +41,8 @@ export class ScreenshotToolboxComponent implements AfterViewInit {
     }
 
     ngAfterViewInit() {
-        this.hasContent = this.wrapper.nativeElement.children.length > 0;
+        window.setTimeout(() => {
+            this.hasContent = this.wrapper.nativeElement.children.length > 0;
+        });
     }
 }

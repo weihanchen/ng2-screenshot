@@ -94,13 +94,13 @@ export class DOMProcess {
         mousedownListener: any,
         contextmenuListener: any
     ): Promise<HTMLCanvasElement> {
-        const context: CanvasRenderingContext2D = canvas.getContext('2d'),
-            rect: Rect = {
-                startX: 0,
-                startY: 0,
-                w: 0,
-                h: 0
-            };
+        const context: CanvasRenderingContext2D = canvas.getContext('2d');
+        const rect: Rect = {
+            startX: 0,
+            startY: 0,
+            w: 0,
+            h: 0
+        };
         let dragging = false;
 
         const draw = () => {
@@ -176,7 +176,13 @@ export class DOMProcess {
         return canvas;
     }
 
-    async setCanvasStyle(canvas: HTMLCanvasElement, left: number, top: number, background: string, zIndex: string): Promise<HTMLCanvasElement> {
+    async setCanvasStyle(
+        canvas: HTMLCanvasElement,
+        left: number,
+        top: number,
+        background: string,
+        zIndex: string
+    ): Promise<HTMLCanvasElement> {
         canvas.style.cursor = 'crosshair';
         canvas.style.position = 'absolute';
         canvas.style.left = left + 'px';

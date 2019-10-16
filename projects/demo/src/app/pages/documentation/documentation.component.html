@@ -17,9 +17,50 @@
       <td>toggle with open/close</td>
     </tr>
     <tr>
-      <td>[isOpenChange]</td>
-      <td><span class="highlight">EventEmitter</span></td>
+      <td>[target]</td>
+      <td><span class="highlight">string</span></td>
+      <td>html element or id</td>
+    </tr>
+    <tr>
+      <td>(apiInitialized)</td>
+      <td><span class="highlight">EventEmitter&lt;Ng2ScreenshotAPI&gt;</span></td>
+      <td>reveive Ng2ScreenshotAPI from ng2-screenshot</td>
+    </tr>
+    <tr>
+      <td>(isOpenChange)</td>
+      <td><span class="highlight">EventEmitter&lt;bool&gt;</span></td>
       <td>reveive isOpen changed from ng2-screenshot</td>
     </tr>
+  </table>
+
+  <h3><a id="screenshot-api" class="anchor" href="#screenshot-api" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Ng2ScreenshotAPI</h3>
+  <table>
+    <tr>
+      <th>Property</th>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+    <tr class="section">
+      <td>cancel</td>
+      <td>void()</td>
+      <td>cancel drag section</td>
+    </tr>
+    <tr class="section">
+      <td>download</td>
+      <td>void()</td>
+      <td>download with selected section</td>
+    </tr>
+    <tr class="section">
+      <td>downloadFull</td>
+      <td>void()</td>
+      <td>download full section</td>
+    </tr>
+    <tr class="section">
+      <td>toPng</td>
+      <td>void(callback: (url: string) => void)</td>
+      <td>selected section to png base64 string</td>
+    </tr>
+ 
+   
   </table>
 </section>
