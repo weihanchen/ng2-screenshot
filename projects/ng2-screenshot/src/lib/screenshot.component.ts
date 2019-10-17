@@ -157,6 +157,7 @@ export class ScreenshotComponent implements OnInit, OnChanges {
                 return elementName !== 'screenshot-toolbox';
             });
     }
+
     private getOptions = (element: HTMLElement) => {
         const boudingClientRect = element.getBoundingClientRect();
         let options = {
@@ -216,18 +217,23 @@ export class ScreenshotComponent implements OnInit, OnChanges {
 
     public canvasMouseupListener = (canvas: HTMLCanvasElement, rect: Rect) => {
         if (rect.w !== 0 && rect.h !== 0) {
-            this.showToolbox = false;
+            // this.showToolbox = false;
             this.rect = rect;
             const toolbox = $(this.container.nativeElement).find('ng2-screenshot-toolbox');
-            // const toolbox = $('ng2-screenshot-toolbox');
-            const toolboxElement = toolbox[0];
+            console.log(toolbox.outerWidth());
+            // console.log(toolbox.width())
+            // // const toolbox = $('ng2-screenshot-toolbox');
+            const toolboxElement = toolbox.get(0);
+            
+            console.log(toolboxElement.clientWidth) 
+            console.log(this.hightLevelZindex)
             /**
              * toolbox position setting
              * because read elememt's width sould indicated postion method, so we set position method first then move location with dom.
              */
             this.domprocess
                 .setToolboxStackStyle(toolboxElement, this.hightLevelZindex.top.toString())
-                .then(this.domprocess.appendToBody)
+                // .then(this.domprocess.appendToBody)
                 .then(element => {
                     const position = this.calculateToolboxPosition(
                         canvas.offsetLeft,

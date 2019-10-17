@@ -2,7 +2,7 @@
     "name": "ng2-screenshot",
     "version": "0.1.0",
     "description": "Angular Screenshot",
-    "author": "akveo",
+    "author": "weihanchen",
     "license": "MIT",
     "dependencies": {
       "lodash": "^4.17.10"
