@@ -36,7 +36,7 @@
     "@angular/platform-browser": "~8.0.0",
     "@angular/platform-browser-dynamic": "~8.0.0",
     "@angular/router": "~8.0.0",
-    "highlight.js": "^9.15.8",
+    "highlight.js": "^10.4.1",
     "lodash": "^4.17.10",
     "ng2-completer": "^3.0.2",
     "ng-zorro-antd": "^8.4.0",
