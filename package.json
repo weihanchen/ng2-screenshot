@@ -55,7 +55,7 @@
     "@types/jasminewd2": "~2.0.3",
     "@types/jquery": "^3.3.31",
     "@types/node": "^8.9.5",
-    "angular-cli-ghpages": "^0.5.3",
+    "angular-cli-ghpages": "^1.0.5",
     "codelyzer": "^5.0.0",
     "dom-to-image": "^2.6.0",
     "jasmine-core": "~3.4.0",
